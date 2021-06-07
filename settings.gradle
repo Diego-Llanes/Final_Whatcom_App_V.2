@@ -1,0 +1,2 @@
+rootProject.name = "Final Whatcom App V.2"
+include ':app'
