@@ -28,6 +28,15 @@ data class CacheEntity(
     @ColumnInfo(name = "days")
     var days: String = "",
 
+    @ColumnInfo(name = "weeks")
+    var weeks: String = "",
+
+    @ColumnInfo(name = "months")
+    var months: String = "",
+
+    @ColumnInfo(name = "hours")
+    var hours: String = "",
+
     @ColumnInfo(name = "additional_notes")
     var aditionalNotes: String = "",
 
