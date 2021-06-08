@@ -1,33 +1,34 @@
 package com.example.finalwhatcomappv2
 
+import android.content.Context
 import android.os.Bundle
-import android.telecom.Call
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import android.widget.Toast
-import androidx.lifecycle.ViewModel
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.finalwhatcomappv2.cache.CacheViewModel
 import com.example.finalwhatcomappv2.cache.CacheViewModelFactory
 import com.example.finalwhatcomappv2.databinding.CacheViewBinding
 import com.example.whatcomapp.cache.CacheDatabase
-import com.example.whatcomapp.cache.CacheDatabaseDao
 import com.example.whatcomapp.cache.CacheEntity
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
 import org.json.JSONObject
 import java.io.IOException
-import okhttp3.*
 
 
 class CacheView : Fragment() {
 
-
     private var _binding: CacheViewBinding? = null
     lateinit var listViewDetails: ListView
     var arrayListDetails: ArrayList<ServiceData> = ArrayList()
+
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -39,11 +40,13 @@ class CacheView : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = CacheViewBinding.inflate(inflater, container, false)
-        insertData()
+        //insertData()
         listViewDetails = binding.listView as ListView
+
 
         return binding.root
         return inflater.inflate(R.layout.fragment_cache_view, container, false)
+
     }
 
     private fun insertData() {
@@ -111,8 +114,10 @@ class CacheView : Fragment() {
                     service.additionalNotes = jsonObjDetail.getString("additional notes")
                     arrayListDetails.add(service)
                 }
-                val objAdapter = CustomAdapter(requireActivity().application, arrayListDetails)
-                listViewDetails.adapter = objAdapter
+
+                activity!!.runOnUiThread {
+                    listViewDetails!!.adapter = CustomAdapter(activity!!.applicationContext, arrayListDetails)
+                }
             }
 
             override fun onFailure(call: okhttp3.Call, e: IOException) {
