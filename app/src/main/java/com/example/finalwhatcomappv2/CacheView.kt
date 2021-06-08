@@ -138,13 +138,13 @@ class CacheView : Fragment() {
 
     //Database Management//
     private fun insertData() {
-        val name = "jake"
-        val addy = "1223113 state"
-        val number = "720poopnum,ber"
+        val name = "jakes food bank"
+        val addy = "1223113 state st"
+        val number = "7204318494"
         val email = "email"
         val website = "website"
         val days = "12"
-        val notes = "dont go here"
+        val notes = "yummy food!"
         val type = "Food Bank"
 
         val entity = CacheEntity(0,name,addy,number,email,website,days,notes,type)
