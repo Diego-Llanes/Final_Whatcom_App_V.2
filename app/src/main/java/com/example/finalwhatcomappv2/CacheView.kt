@@ -111,7 +111,7 @@ class CacheView : Fragment() {
                     service.additionalNotes = jsonObjDetail.getString("additional notes")
                     arrayListDetails.add(service)
                 }
-                val objAdapter = CustomAdapter(getApplicationContext(), arrayListDetails)
+                val objAdapter = CustomAdapter(requireActivity().application, arrayListDetails)
                 listViewDetails.adapter = objAdapter
             }
 
