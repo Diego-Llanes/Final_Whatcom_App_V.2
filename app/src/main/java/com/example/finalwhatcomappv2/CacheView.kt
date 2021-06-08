@@ -194,7 +194,7 @@ class CacheView : Fragment() {
                     }
                 }
             }else{
-                val message = "Please enable Location."
+                val message = "Please enable Location on your device."
                 val toast = Toast.makeText(activity, message, Toast.LENGTH_SHORT)
                 toast.show()
             }
