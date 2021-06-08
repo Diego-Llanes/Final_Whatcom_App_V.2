@@ -33,13 +33,21 @@ class LandingPageFragment : Fragment() {
 
 
         binding.buttonSeniorMeals.setOnClickListener {
-            findNavController().navigate(R.id.action_landingPageFragment_to_cacheView)
+            val action = LandingPageFragmentDirections.
+                                    actionLandingPageFragmentToCacheView("SeniorMeals")
+            findNavController().navigate(action)
         }
+
         binding.buttonCommunityMeals.setOnClickListener {
-            findNavController().navigate(R.id.action_landingPageFragment_to_cacheView)
+            val action = LandingPageFragmentDirections.
+                                    actionLandingPageFragmentToCacheView("CommunityMeals")
+            findNavController().navigate(action)
         }
+
         binding.buttonFoodBanks.setOnClickListener {
-            findNavController().navigate(R.id.action_landingPageFragment_to_cacheView)
+            val action = LandingPageFragmentDirections.
+                                    actionLandingPageFragmentToCacheView("FoodBanks")
+            findNavController().navigate(action)
         }
     }
 

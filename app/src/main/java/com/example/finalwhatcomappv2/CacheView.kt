@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.finalwhatcomappv2.cache.CacheViewModel
 import com.example.finalwhatcomappv2.cache.CacheViewModelFactory
 import com.example.finalwhatcomappv2.databinding.CacheViewBinding
@@ -28,6 +29,7 @@ class CacheView : Fragment() {
     private var _binding: CacheViewBinding? = null
     lateinit var listViewDetails: ListView
     var arrayListDetails: ArrayList<ServiceData> = ArrayList()
+    private val args: CacheViewArgs by navArgs()
 
 
     // This property is only valid between onCreateView and
@@ -82,7 +84,7 @@ class CacheView : Fragment() {
         binding.floatingActionButton.setOnClickListener {
             val toast = Toast.makeText(activity, "Refreshing", Toast.LENGTH_SHORT)
             toast.show()
-            jsonParseClient("https://radiant-dawn-48071.herokuapp.com/service/SeniorMeals")
+            jsonParseClient("https://radiant-dawn-48071.herokuapp.com/service/${args.serviceType}")
         }
 
     }

@@ -21,5 +21,9 @@
         <action
             android:id="@+id/action_cacheView_to_landingPageFragment"
             app:destination="@id/landingPageFragment" />
+        <argument
+            android:name="serviceType"
+            app:argType="string"
+            android:defaultValue="CommunityMeals" />
     </fragment>
 </navigation>
