@@ -11,18 +11,18 @@ import androidx.room.Update
 interface CacheDatabaseDao{
 
     @Insert
-    fun insert(cache: CacheEntity)
+    fun add(cache: CacheEntity)
 
     @Update
     fun update(cache: CacheEntity)
 
-    @Query("SELECT * from cache_table WHERE foodbankName = :key")
+    @Query("SELECT * from cache_table WHERE id = :key")
     fun get(key: String): CacheEntity?
 
     @Query("DELETE FROM cache_table")
     fun clear()
 
-    @Query("SELECT * FROM cache_table ORDER BY foodbankName DESC")
+    @Query("SELECT * FROM cache_table ORDER BY id DESC")
     fun getAllnames(): LiveData<List<CacheEntity>>
 
 

@@ -1,4 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph" />
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/landingPageFragment">
+    <fragment
+        android:id="@+id/landingPageFragment"
+        android:name="com.example.finalwhatcomappv2.LandingPageFragment"
+        android:label="fragment_landing_page"
+        tools:layout="@layout/fragment_landing_page" >
+        <action
+            android:id="@+id/action_landingPageFragment_to_cacheView"
+            app:destination="@id/cacheView" />
+    </fragment>
+    <fragment
+        android:id="@+id/cacheView"
+        android:name="com.example.finalwhatcomappv2.CacheView"
+        android:label="fragment_cache_view"
+        tools:layout="@layout/fragment_cache_view" >
+        <action
+            android:id="@+id/action_cacheView_to_landingPageFragment"
+            app:destination="@id/landingPageFragment" />
+    </fragment>
+</navigation>

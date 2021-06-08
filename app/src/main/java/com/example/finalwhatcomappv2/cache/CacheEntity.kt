@@ -8,7 +8,10 @@ import androidx.room.PrimaryKey
 
 data class CacheEntity(
     @PrimaryKey(autoGenerate = true)
-    var foodbankName: String = "",
+    var id: Int = 0,
+
+    @ColumnInfo(name = "service_name")
+    val foodBankName: String = "",
 
     @ColumnInfo(name = "address")
     val adress: String = "",
@@ -23,7 +26,7 @@ data class CacheEntity(
     var website: String = "",
 
     @ColumnInfo(name = "days")
-    var days: Int = 0,
+    var days: String = "",
 
     @ColumnInfo(name = "additional_notes")
     var aditionalNotes: String = "",
