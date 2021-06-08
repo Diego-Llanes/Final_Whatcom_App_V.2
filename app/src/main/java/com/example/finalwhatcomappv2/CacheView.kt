@@ -96,7 +96,7 @@ class CacheView : Fragment() {
         client.newCall(request).enqueue(object: Callback {
 
             override fun onResponse(call: okhttp3.Call, response: Response) {
-                println("jake")
+                println("Parsing data from $url")
                 val strResponse = response.body?.string()
                 val jsonContact = JSONObject(strResponse)
                 val jsonObj: JSONObject = jsonContact//.getJSONObject("CommunityMeals")
@@ -119,6 +119,7 @@ class CacheView : Fragment() {
 
                 activity!!.runOnUiThread {
                     listViewDetails.adapter = CustomAdapter(activity!!.applicationContext, arrayListDetails)
+                    println("JSON parse successful!")
                 }
             }
 
