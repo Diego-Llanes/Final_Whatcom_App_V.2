@@ -51,8 +51,6 @@ class CacheView : Fragment() {
 
         val entity = CacheEntity(0,name,addy,number,email,website,days,notes,type)
 
-//        CacheDatabaseDao.insert(entity)
-//        CacheDatabaseDao.add(entity)
         val application = requireNotNull(this.activity).application
         val dataSource = CacheDatabase.getInstance(application).CacheDatabaseDao
         val viewModelFactory = CacheViewModelFactory(dataSource, application)
