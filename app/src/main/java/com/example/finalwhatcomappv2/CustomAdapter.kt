@@ -51,6 +51,7 @@ class CustomAdapter (context: Context, arrayListDetails: ArrayList<ServiceData>)
         listRowHolder.serviceWebsite.text = arrayListDetails.get(position).website
         listRowHolder.serviceDays.text = arrayListDetails.get(position).days
         listRowHolder.serviceMonths.text = arrayListDetails.get(position).months
+        listRowHolder.serviceWeeks.text = arrayListDetails.get(position).weeks
         listRowHolder.serviceHours.text = arrayListDetails.get(position).hours
         listRowHolder.serviceAdditionalNotes.text = arrayListDetails.get(position).additionalNotes
         return view

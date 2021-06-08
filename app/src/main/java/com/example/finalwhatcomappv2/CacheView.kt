@@ -109,15 +109,16 @@ class CacheView : Fragment() {
                 while (jsonKeys.hasNext()) {
                     var jsonObjDetail: JSONObject = jsonObj.getJSONObject(jsonKeys.next())
                     var service: ServiceData = ServiceData()
-                    service.name = jsonObjDetail.getString("name")
-                    service.address = jsonObjDetail.getString("address")
-                    service.phone = jsonObjDetail.getString("phone")
-                    service.email = jsonObjDetail.getString("email")
-                    service.website = jsonObjDetail.getString("website")
-                    service.days = jsonObjDetail.getString("days")
-                    service.months = jsonObjDetail.getString("months")
-                    service.hours = jsonObjDetail.getString("hours")
-                    service.additionalNotes = jsonObjDetail.getString("additional notes")
+                    service.name = "Name: ${jsonObjDetail.getString("name")}"
+                    service.address = "Address: ${jsonObjDetail.getString("address")}"
+                    service.phone = "Phone Number: ${jsonObjDetail.getString("phone")}"
+                    service.email = "E-Mail: ${jsonObjDetail.getString("email")}"
+                    service.website = "Webiste: ${jsonObjDetail.getString("website")}"
+                    service.days = "Days Open: ${jsonObjDetail.getString("days")}"
+                    service.weeks = "Weeks Open: ${jsonObjDetail.getString("weeks")}"
+                    service.months = "Months Open: ${jsonObjDetail.getString("months")}"
+                    service.hours = "Hours Open: ${jsonObjDetail.getString("hours")}"
+                    service.additionalNotes = "Addotional Notes: ${jsonObjDetail.getString("additional notes")}"
                     arrayListDetails.add(service)
                 }
 

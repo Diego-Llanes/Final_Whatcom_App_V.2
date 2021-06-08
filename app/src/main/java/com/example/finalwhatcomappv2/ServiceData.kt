@@ -8,6 +8,7 @@ class ServiceData {
     lateinit var email: String
     lateinit var website: String
     lateinit var days: String
+    lateinit var weeks: String
     lateinit var months: String
     lateinit var hours: String
     lateinit var additionalNotes: String
