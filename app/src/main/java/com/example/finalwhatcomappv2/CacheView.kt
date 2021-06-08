@@ -118,7 +118,7 @@ class CacheView : Fragment() {
                     service.weeks = "Weeks Open: ${jsonObjDetail.getString("weeks")}"
                     service.months = "Months Open: ${jsonObjDetail.getString("months")}"
                     service.hours = "Hours Open: ${jsonObjDetail.getString("hours")}"
-                    service.additionalNotes = "Addotional Notes: ${jsonObjDetail.getString("additional notes")}"
+                    service.additionalNotes = "Additional Notes: ${jsonObjDetail.getString("additional notes")}"
                     arrayListDetails.add(service)
                 }
 
