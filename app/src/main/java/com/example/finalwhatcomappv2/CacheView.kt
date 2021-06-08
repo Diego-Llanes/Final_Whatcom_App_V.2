@@ -59,7 +59,7 @@ class CacheView : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = CacheViewBinding.inflate(inflater, container, false)
-        insertData()
+        //insertData()
         listViewDetails = binding.listView as ListView
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
 
@@ -78,10 +78,10 @@ class CacheView : Fragment() {
         binding.floatingActionButton.setOnClickListener {
             val toast = Toast.makeText(activity, "Refreshing", Toast.LENGTH_SHORT)
             toast.show()
-            if (binding.checkBox2.isChecked) {
+            if(binding.checkBox2.isChecked){
                 getServicesInLocation()
 
-            } else {
+            }else{
                 jsonParseClient("https://radiant-dawn-48071.herokuapp.com/service/${args.serviceType}")
             }
         }
@@ -93,11 +93,11 @@ class CacheView : Fragment() {
     }
 
     //Downloading from Server//
-    fun jsonParseClient(url: String) {
+    fun jsonParseClient (url: String) {
         println("Attempting to parse JSON!")
         val client = OkHttpClient()
         val request = Request.Builder().url(url).build()
-        client.newCall(request).enqueue(object : Callback {
+        client.newCall(request).enqueue(object: Callback {
 
             override fun onResponse(call: okhttp3.Call, response: Response) {
                 println("Parsing data from $url")
@@ -119,13 +119,12 @@ class CacheView : Fragment() {
                     service.months = "Months Open: ${jsonObjDetail.getString("months")}"
                     service.hours = "Hours Open: ${jsonObjDetail.getString("hours")}"
                     service.additionalNotes =
-                        "Addotional Notes: ${jsonObjDetail.getString("additional notes")}"
+                        "Additional Notes: ${jsonObjDetail.getString("additional notes")}"
                     arrayListDetails.add(service)
                 }
 
                 activity!!.runOnUiThread {
-                    listViewDetails.adapter =
-                        CustomAdapter(activity!!.applicationContext, arrayListDetails)
+                    listViewDetails.adapter = CustomAdapter(activity!!.applicationContext, arrayListDetails)
                     println("JSON parse successful!")
                 }
             }
@@ -139,29 +138,27 @@ class CacheView : Fragment() {
 
     //Database Management//
     private fun insertData() {
-        Thread(Runnable {
-            val name = "Jakes Food Store!"
-            val addy = "1213 state st"
-            val number = "720-431-8494"
-            val email = "ex@ex.ex"
-            val website = "website.com"
-            val days = "m w f"
-            val notes = "tasty food!"
-            val type = "Food Bank"
+        val name = "jake"
+        val addy = "1223113 state"
+        val number = "720poopnum,ber"
+        val email = "email"
+        val website = "website"
+        val days = "12"
+        val notes = "dont go here"
+        val type = "Food Bank"
 
-            val entity = CacheEntity(0, name, addy, number, email, website, days, notes, type)
+        val entity = CacheEntity(0,name,addy,number,email,website,days,notes,type)
 
-            val application = requireNotNull(this.activity).application
-            val dataSource = CacheDatabase.getInstance(application).CacheDatabaseDao
-            val viewModelFactory = CacheViewModelFactory(dataSource, application)
-            val mCacheViewModel =
-                ViewModelProvider(
-                    this, viewModelFactory
-                ).get(CacheViewModel::class.java)
+        val application = requireNotNull(this.activity).application
+        val dataSource = CacheDatabase.getInstance(application).CacheDatabaseDao
+        val viewModelFactory = CacheViewModelFactory(dataSource, application)
+        val mCacheViewModel =
+            ViewModelProvider(
+                this, viewModelFactory).get(CacheViewModel::class.java)
 
-            mCacheViewModel.addEntity(entity)
-        })
-}
+        mCacheViewModel.addEntity(entity)
+    }
+
     //Location Methods//
     private fun isLocationEnabled(): Boolean {
         var locationManager: LocationManager = requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager

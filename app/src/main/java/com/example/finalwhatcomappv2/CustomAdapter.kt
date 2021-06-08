@@ -50,6 +50,7 @@ class CustomAdapter (context: Context, arrayListDetails: ArrayList<ServiceData>)
         listRowHolder.serviceEmail.text = arrayListDetails.get(position).email
         listRowHolder.serviceWebsite.text = arrayListDetails.get(position).website
         listRowHolder.serviceDays.text = arrayListDetails.get(position).days
+        listRowHolder.serviceWeeks.text = arrayListDetails.get(position).weeks
         listRowHolder.serviceMonths.text = arrayListDetails.get(position).months
         listRowHolder.serviceWeeks.text = arrayListDetails.get(position).weeks
         listRowHolder.serviceHours.text = arrayListDetails.get(position).hours
