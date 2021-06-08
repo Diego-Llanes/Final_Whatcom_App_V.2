@@ -1,12 +1,15 @@
 package com.example.finalwhatcomappv2
 
 import android.content.Context
+import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -16,6 +19,7 @@ import com.example.finalwhatcomappv2.cache.CacheViewModelFactory
 import com.example.finalwhatcomappv2.databinding.CacheViewBinding
 import com.example.whatcomapp.cache.CacheDatabase
 import com.example.whatcomapp.cache.CacheEntity
+import com.google.android.gms.location.FusedLocationProviderClient
 import okhttp3.Callback
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -30,6 +34,12 @@ class CacheView : Fragment() {
     lateinit var listViewDetails: ListView
     var arrayListDetails: ArrayList<ServiceData> = ArrayList()
     private val args: CacheViewArgs by navArgs()
+
+    // values for location finding
+    private var longitude: String? = null
+    private var latitude: String? = null
+    private var range: String? = null
+    private var fusedLocationClient: FusedLocationProviderClient? = null
 
 
     // This property is only valid between onCreateView and
@@ -50,6 +60,27 @@ class CacheView : Fragment() {
         return binding.root
         return inflater.inflate(R.layout.fragment_cache_view, container, false)
 
+    }
+
+    // this method doesn't work yet, need to figure out how to get it to work in a fragment
+    fun getLastKnownLocation () {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) return
+        fusedLocationClient?.lastLocation!!.addOnCompleteListener(this) { task ->
+            if (task.isSuccessful && task.result != null) {
+                var location: Location? = task.result
+                latitude = location?.latitude.toString()
+                longitude = location?.longitude.toString()
+                /*jsonParseClient("""https://radiant-dawn-48071.herokuapp.com/serviceInRange/SeniorMeals?lat=$latitude
+                        &lon=$longitude&range=$range""")*/
+            }
+        }
     }
 
     private fun insertData() {
