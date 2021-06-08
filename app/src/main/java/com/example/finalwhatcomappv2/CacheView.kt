@@ -1,10 +1,12 @@
 package com.example.finalwhatcomappv2
 
 import android.os.Bundle
+import android.telecom.Call
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ListView
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -15,12 +17,17 @@ import com.example.finalwhatcomappv2.databinding.CacheViewBinding
 import com.example.whatcomapp.cache.CacheDatabase
 import com.example.whatcomapp.cache.CacheDatabaseDao
 import com.example.whatcomapp.cache.CacheEntity
+import org.json.JSONObject
+import java.io.IOException
+import okhttp3.*
 
 
 class CacheView : Fragment() {
 
 
     private var _binding: CacheViewBinding? = null
+    lateinit var listViewDetails: ListView
+    var arrayListDetails: ArrayList<ServiceData> = ArrayList()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -33,10 +40,10 @@ class CacheView : Fragment() {
         // Inflate the layout for this fragment
         _binding = CacheViewBinding.inflate(inflater, container, false)
         insertData()
+        listViewDetails = binding.listView as ListView
 
         return binding.root
         return inflater.inflate(R.layout.fragment_cache_view, container, false)
-
     }
 
     private fun insertData() {
@@ -70,9 +77,48 @@ class CacheView : Fragment() {
 
         binding.floatingActionButton.setOnClickListener {
             val toast = Toast.makeText(activity, "Refreshing", Toast.LENGTH_SHORT)
+            jsonParseClient("https://radiant-dawn-48071.herokuapp.com/service/SeniorMeals")
+
+
             toast.show()
         }
 
     }
 
+    fun jsonParseClient (url: String) {
+        println("Attempting to parse JSON!")
+        val client = OkHttpClient()
+        val request = Request.Builder().url(url).build()
+        client.newCall(request).enqueue(object: Callback {
+
+            override fun onResponse(call: okhttp3.Call, response: Response) {
+                val strResponse = response.body?.string()
+                val jsonContact = JSONObject(strResponse)
+                val jsonObj: JSONObject = jsonContact//.getJSONObject("CommunityMeals")
+                arrayListDetails = ArrayList()
+                val jsonKeys: Iterator<String> = jsonObj.keys()
+                while (jsonKeys.hasNext()) {
+                    var jsonObjDetail: JSONObject = jsonObj.getJSONObject(jsonKeys.next())
+                    var service: ServiceData = ServiceData()
+                    service.name = jsonObjDetail.getString("name")
+                    service.address = jsonObjDetail.getString("address")
+                    service.phone = jsonObjDetail.getString("phone")
+                    service.email = jsonObjDetail.getString("email")
+                    service.website = jsonObjDetail.getString("website")
+                    service.days = jsonObjDetail.getString("days")
+                    service.months = jsonObjDetail.getString("months")
+                    service.hours = jsonObjDetail.getString("hours")
+                    service.additionalNotes = jsonObjDetail.getString("additional notes")
+                    arrayListDetails.add(service)
+                }
+                val objAdapter = CustomAdapter(getApplicationContext(), arrayListDetails)
+                listViewDetails.adapter = objAdapter
+            }
+
+            override fun onFailure(call: okhttp3.Call, e: IOException) {
+                println("JSON parse failed!")
+            }
+
+        })
+    }
 }

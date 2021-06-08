@@ -1,13 +1,14 @@
 package com.example.finalwhatcomappv2
 
-class SeniorMeal {
+class ServiceData {
     lateinit var name: String
-    lateinit var location: String
+    lateinit var address: String
     lateinit var coordinates: String
-    lateinit var days: String
     lateinit var phone: String
     lateinit var email: String
     lateinit var website: String
-    lateinit var additionalnotes: String
-
+    lateinit var days: String
+    lateinit var months: String
+    lateinit var hours: String
+    lateinit var additionalNotes: String
 }

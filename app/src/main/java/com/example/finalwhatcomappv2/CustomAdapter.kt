@@ -10,14 +10,15 @@ import android.widget.LinearLayout
 import android.widget.TextView
 
 
-class CustomAdapter (context: Context, arrayListDetails: ArrayList<SeniorMeal>): BaseAdapter() {
+class CustomAdapter (context: Context, arrayListDetails: ArrayList<ServiceData>): BaseAdapter() {
     private val layoutInflater: LayoutInflater
-    private val arrayListDetails: ArrayList<SeniorMeal>
+    private val arrayListDetails: ArrayList<ServiceData>
+    private val aContext: Context
 
-    init {
+    init{
         this.layoutInflater = LayoutInflater.from(context)
         this.arrayListDetails = arrayListDetails
-
+        this.aContext = context
     }
 
     override fun getCount(): Int {
@@ -43,36 +44,44 @@ class CustomAdapter (context: Context, arrayListDetails: ArrayList<SeniorMeal>):
             view = convertView
             listRowHolder = view.tag as ListRowHolder
         }
-        listRowHolder.tvName.text = arrayListDetails.get(position).name
-        listRowHolder.tvLocation.text = arrayListDetails.get(position).location
-        listRowHolder.tvDays.text = arrayListDetails.get(position).days
-        listRowHolder.tvPhone.text = arrayListDetails.get(position).phone
-        listRowHolder.tvEmail.text = arrayListDetails.get(position).email
-        listRowHolder.tvWebsite.text = arrayListDetails.get(position).website
-        listRowHolder.tvAdditional.text = arrayListDetails.get(position).additionalnotes
+        listRowHolder.serviceName.text = arrayListDetails.get(position).name
+        listRowHolder.serviceAddress.text = arrayListDetails.get(position).address
+        listRowHolder.servicePhone.text = arrayListDetails.get(position).phone
+        listRowHolder.serviceEmail.text = arrayListDetails.get(position).email
+        listRowHolder.serviceWebsite.text = arrayListDetails.get(position).website
+        listRowHolder.serviceDays.text = arrayListDetails.get(position).days
+        listRowHolder.serviceMonths.text = arrayListDetails.get(position).months
+        listRowHolder.serviceHours.text = arrayListDetails.get(position).hours
+        listRowHolder.serviceAdditionalNotes.text = arrayListDetails.get(position).additionalNotes
         return view
     }
 
 }
 
 private class ListRowHolder(row: View?) {
-    public val tvName: TextView
-    public val tvLocation: TextView
-    public val tvDays: TextView
-    public val tvPhone: TextView
-    public val tvEmail: TextView
-    public val tvWebsite: TextView
-    public val tvAdditional: TextView
+    public val serviceName: TextView
+    public val serviceAddress: TextView
+    public val servicePhone: TextView
+    public val serviceEmail: TextView
+    public val serviceWebsite: TextView
+    public val serviceDays: TextView
+    public val serviceWeeks: TextView
+    public val serviceMonths: TextView
+    public val serviceHours: TextView
+    public val serviceAdditionalNotes: TextView
     public val linearLayout: LinearLayout
 
     init {
-        this.tvName = row?.findViewById<TextView>(R.id.tvName) as TextView
-        this.tvLocation = row?.findViewById<TextView>(R.id.tvLocation) as TextView
-        this.tvDays = row?.findViewById<TextView>(R.id.tvDays) as TextView
-        this.tvPhone = row?.findViewById<TextView>(R.id.tvPhone) as TextView
-        this.tvEmail = row?.findViewById<TextView>(R.id.tvEmail) as TextView
-        this.tvWebsite = row?.findViewById<TextView>(R.id.tvWebsite) as TextView
-        this.tvAdditional = row?.findViewById<TextView>(R.id.tvAdditional) as TextView
+        this.serviceName = row?.findViewById<TextView>(R.id.serviceName) as TextView
+        this.serviceAddress = row?.findViewById<TextView>(R.id.serviceAddress) as TextView
+        this.servicePhone = row?.findViewById<TextView>(R.id.servicePhone) as TextView
+        this.serviceEmail = row?.findViewById<TextView>(R.id.serviceEmail) as TextView
+        this.serviceWebsite = row?.findViewById<TextView>(R.id.serviceWebsite) as TextView
+        this.serviceDays = row?.findViewById<TextView>(R.id.serviceDays) as TextView
+        this.serviceWeeks = row?.findViewById<TextView>(R.id.serviceWeeks) as TextView
+        this.serviceMonths = row?.findViewById<TextView>(R.id.serviceMonths) as TextView
+        this.serviceHours = row?.findViewById<TextView>(R.id.serviceHours) as TextView
+        this.serviceAdditionalNotes = row?.findViewById<TextView>(R.id.serviceAdditionalNotes) as TextView
         this.linearLayout = row?.findViewById<LinearLayout>(R.id.linearLayout) as LinearLayout
 
     }

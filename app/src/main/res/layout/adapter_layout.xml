@@ -9,44 +9,62 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvName"
+        android:id="@+id/serviceName"
         android:layout_margin="5dp"
         android:textSize="16sp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvLocation"
+        android:id="@+id/serviceAddress"
         android:textSize="16sp"
         android:layout_margin="5dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvDays"
+        android:id="@+id/servicePhone"
         android:layout_margin="5dp"
         android:textSize="16sp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvPhone"
+        android:id="@+id/serviceEmail"
         android:layout_margin="5dp"
         android:textSize="16sp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvEmail"
+        android:id="@+id/serviceWebsite"
         android:layout_margin="5dp"
         android:textSize="16sp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvWebsite"
+        android:id="@+id/serviceDays"
         android:layout_margin="5dp"
         android:textSize="16sp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvAdditional"
+        android:id="@+id/serviceWeeks"
+        android:layout_margin="5dp"
+        android:textSize="16sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/serviceMonths"
+        android:layout_margin="5dp"
+        android:textSize="16sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/serviceHours"
+        android:layout_margin="5dp"
+        android:textSize="16sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/serviceAdditionalNotes"
         android:layout_margin="5dp"
         android:textSize="16sp"/>
 
