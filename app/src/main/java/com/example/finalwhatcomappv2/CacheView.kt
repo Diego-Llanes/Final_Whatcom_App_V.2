@@ -1,9 +1,11 @@
 package com.example.finalwhatcomappv2
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.ListView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -42,7 +45,7 @@ class CacheView : Fragment() {
     private var latitude: String? = null
     private var range: String? = null
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-
+    val PERMISSION_ID = 42
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -64,17 +67,52 @@ class CacheView : Fragment() {
 
     }
 
-    // this method doesn't work yet, need to figure out how to get it to work in a fragment
+    private fun checkPermissions () : Boolean {
+        if (ActivityCompat.checkSelfPermission(requireActivity().applicationContext, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(requireActivity().applicationContext, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            return true
+        }
+        return false
+    }
+
+    private fun requestPermissions() {
+        ActivityCompat.requestPermissions(
+            requireActivity().applicationContext as Activity,
+            arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION),
+            PERMISSION_ID
+        )
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        if (requestCode == PERMISSION_ID) {
+            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                // Granted
+            }
+        }
+    }
+
+    private fun isLocationEnabled(): Boolean {
+        var locationManager: LocationManager = requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
+            LocationManager.NETWORK_PROVIDER
+        )
+    }
+
+    // this method doesn't work yet
     @SuppressLint("MissingPermission")
     fun getLastKnownLocation() {
-        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-            if (location != null) {
-                latitude = location.latitude.toString()
-                longitude = location.longitude.toString()
-                println(latitude)
-                println(longitude)
-            } else {
-                println("Unable to get coordinates!")
+        if (checkPermissions()) {
+            if (isLocationEnabled()) {
+                fusedLocationClient.lastLocation!!.addOnSuccessListener { location ->
+                    if (location != null) {
+                        latitude = location.latitude.toString()
+                        longitude = location.longitude.toString()
+                        println(latitude)
+                        println(longitude)
+                    } else {
+                        println("Unable to get coordinates!")
+                    }
+                }
             }
         }
     }
@@ -103,7 +141,7 @@ class CacheView : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getLastKnownLocation()
+
         binding.buttonBack.setOnClickListener {
             findNavController().navigate(R.id.action_cacheView_to_landingPageFragment)
         }
@@ -111,7 +149,12 @@ class CacheView : Fragment() {
         binding.floatingActionButton.setOnClickListener {
             val toast = Toast.makeText(activity, "Refreshing", Toast.LENGTH_SHORT)
             toast.show()
+            getLastKnownLocation()
             jsonParseClient("https://radiant-dawn-48071.herokuapp.com/service/${args.serviceType}")
+        }
+
+        binding.checkBox2.setOnClickListener {
+
         }
 
     }
