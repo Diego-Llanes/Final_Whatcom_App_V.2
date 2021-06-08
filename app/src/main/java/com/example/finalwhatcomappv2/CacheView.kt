@@ -37,6 +37,7 @@ class CacheView : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
+
     ): View? {
         // Inflate the layout for this fragment
         _binding = CacheViewBinding.inflate(inflater, container, false)
@@ -80,10 +81,8 @@ class CacheView : Fragment() {
 
         binding.floatingActionButton.setOnClickListener {
             val toast = Toast.makeText(activity, "Refreshing", Toast.LENGTH_SHORT)
-            jsonParseClient("https://radiant-dawn-48071.herokuapp.com/service/SeniorMeals")
-
-
             toast.show()
+            jsonParseClient("https://radiant-dawn-48071.herokuapp.com/service/SeniorMeals")
         }
 
     }
@@ -95,6 +94,7 @@ class CacheView : Fragment() {
         client.newCall(request).enqueue(object: Callback {
 
             override fun onResponse(call: okhttp3.Call, response: Response) {
+                println("jake")
                 val strResponse = response.body?.string()
                 val jsonContact = JSONObject(strResponse)
                 val jsonObj: JSONObject = jsonContact//.getJSONObject("CommunityMeals")
@@ -116,7 +116,7 @@ class CacheView : Fragment() {
                 }
 
                 activity!!.runOnUiThread {
-                    listViewDetails!!.adapter = CustomAdapter(activity!!.applicationContext, arrayListDetails)
+                    listViewDetails.adapter = CustomAdapter(activity!!.applicationContext, arrayListDetails)
                 }
             }
 
