@@ -85,7 +85,9 @@ class LandingPageFragment : Fragment() {
             }
 
             override fun onFailure(call: okhttp3.Call, e: IOException) {
-                serviceList.add("FoodBanks")
+                val message = "The application could not contact the server."
+                val toast = Toast.makeText(activity, message, Toast.LENGTH_SHORT)
+                toast.show()
             }
         })
     }
